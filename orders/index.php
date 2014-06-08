@@ -16,14 +16,19 @@ if (isset($_POST['dishname'])
 
     $query = "insert into orders (dishname, phone, address,date) value('$dishname','$phone','$address',now())";
     mysql_query($query, $connection) or die(mysql_error());
-}else
-{
+} else {
     echo("variables arent set");
 }
 
 
 $query = "select * from orders";
 $result = mysql_query($query, $connection) or die(mysql_error());
+
+
+$sendmail = mail("kushko.alex@gmail.com", "subj1", "textttttt", "From: edoki\n");
+echo("sendmailres=" . $sendmail);
+
+
 ?>
 
 <table>

@@ -1,0 +1,10 @@
+AddDefaultCharset Off
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>
+
+
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^([a-zA-Z_-]*)$ index.php?name=$1 [nc,qsa]

@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require_once("config.php");
+require_once("init.php");
 
 $username = mysql_real_escape_string($_POST['username']);
 $password = md5($_POST['password']);
 
-$query = "select id from users where username='$username' and password='$password'";
-$q_result = mysql_query($query, $connection);
+$query = "select id from users where Name='$username' and Password='$password'";
+$q_result = mysql_query($query, $connection) or die(mysql_error());
 $rows = mysql_num_rows($q_result);
 if ($rows == 1) {
     header("Location:index.php");

@@ -1,6 +1,6 @@
 <?php
 
-require_once "../orders/init.php";
+require_once "../init.php";
 require_once "../model/mailhelper.php";
 require_once "../model/order.php";
 require_once "../model/orderfactory.php";

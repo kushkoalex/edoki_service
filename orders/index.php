@@ -4,7 +4,7 @@ if (!isset($_SESSION['login_status'])) {
     header("Location:login.html");
 }
 
-require_once "init.php";
+require_once "../init.php";
 require_once "../model/order.php";
 require_once "../model/orderfactory.php";
 require_once "../model/mailhelper.php";

@@ -6,8 +6,9 @@ namespace model;
 
 class Connection
 {
-    protected $link;
+    protected  $link;
     private $server, $username, $password, $db;
+
 
     public function __construct($server, $username, $password, $db)
     {
@@ -36,7 +37,7 @@ class Connection
 
     public function executeQuery($query)
     {
-        return mysql_query($query, $this->link) or die(mysql_error());
+        return mysql_query($query,$this->link);
     }
 
     public function executeNonQuery($query)
@@ -46,6 +47,10 @@ class Connection
 
     public function __toString()
     {
-        return (string)$this->link;
+        return "server: " . $this->server . "<br>" .
+        "username: " . $this->username . "<br>" .
+        "password: " . $this->password . "<br>" .
+        "db: " . $this->db . "<br>" .
+        "link: " . (string)$this->link . "<br>";
     }
 } 

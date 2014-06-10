@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['login_status'])) {
     header("Location:login.html");
 }
-require "init.php";
+require_once "init.php";
 
 if (isset($_POST['dishname'])
     && isset($_POST['address'])

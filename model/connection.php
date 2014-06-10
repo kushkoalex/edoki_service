@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: o.kushko
- * Date: 10.06.14
- * Time: 10:20
- */
+
 
 namespace model;
 
 
-class Connection {
+class Connection
+{
     protected $link;
     private $server, $username, $password, $db;
 
@@ -36,5 +32,20 @@ class Connection {
     public function __wakeup()
     {
         $this->connect();
+    }
+
+    public function executeQuery($query)
+    {
+        return mysql_query($query, $this->link) or die(mysql_error());
+    }
+
+    public function executeNonQuery($query)
+    {
+        mysql_query($query, $this->link) or die(mysql_error());
+    }
+
+    public function __toString()
+    {
+        return (string)$this->link;
     }
 } 

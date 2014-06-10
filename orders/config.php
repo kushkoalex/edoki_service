@@ -10,5 +10,10 @@ $db_login = "root";
 $db_password = "";
 $db_name= "gbua_dev_edoki";
 
+$mailTo = "kushko.alex@gmail.com";
+$mailTitleFrom = "edoki";
+$mailSubj = "Заказ";
+
+
 
 

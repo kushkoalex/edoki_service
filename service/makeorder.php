@@ -1,20 +1,22 @@
 <?php
 
 require_once "../orders/init.php";
+require_once "../model/mailhelper.php";
+require_once "../model/order.php";
+require_once "../model/orderfactory.php";
 
 try
 {
     $data = json_decode(file_get_contents('php://input'), true);
-    $phone = $data['phone'];
-    $from = $data['from'];
-    $sendmail = mail("kushko.alex@gmail.com", "order", "phone=".$phone." from=".$from, "From: edoki\n");
+    $orderFactory = new \model\OrderFactory($connection);
+    $order = new \model\Order();
+    $order->dishname =$data['from'];
+    $order->phone = $data['phone'];
+    $orderFactory->save($order);
 
-
-
-    $query = "insert into orders (dishname, phone, date) value('$from','$phone',now())";
-    mysql_query($query, $connection) or die(mysql_error());
-
-
+    $mailHelper = new \model\MailHelper();
+    $text = "aaaa";
+    $mailHelper->sendMail($mailTo, $mailTitleFrom, $mailSubj, $text);
 }
 catch (Exception $e)
 {

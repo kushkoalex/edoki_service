@@ -7,6 +7,7 @@ if (!isset($_SESSION['login_status'])) {
 require_once "init.php";
 require_once "../model/order.php";
 require_once "../model/orderfactory.php";
+require_once "../model/mailhelper.php";
 
 $orderFactory = new \model\OrderFactory($connection);
 
@@ -21,34 +22,26 @@ if (isset($_POST['dishname']) && isset($_POST['address']) && isset($_POST['phone
     $orderFactory->save($order);
 }
 
-if(isset($_GET['action'])&&$_GET['action']=='delete')
-{
+if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $order = $orderFactory->getOrderById($_GET['id']);
     $orderFactory->delete($order);
 }
 
-//$query = "select * from orders";
-//echo($conn);
-//$ccc = mysql_connect($db_host, $db_login, $db_password);
-//mysql_select_db($db_name, $ccc);
-//$result = mysql_query($query, $ccc) or die(mysql_error());
-//echo($result);
 
-//$sendmail = mail("kushko.alex@gmail.com", "subj1", "textttttt", "From: edoki\n");
 
 $orders = $orderFactory->getAllOrders();
 
 ?>
 
 <table border="1" style="border-collapse: collapse;">
-<tr>
-    <th>id</th>
-    <th>page</th>
-    <th>phone</th>
-    <th>address</th>
-    <th>date</th>
-    <th></th>
-</tr>
+    <tr>
+        <th>id</th>
+        <th>page</th>
+        <th>phone</th>
+        <th>address</th>
+        <th>date</th>
+        <th></th>
+    </tr>
     <?
     foreach ($orders as $order) {
         ?>
@@ -58,7 +51,7 @@ $orders = $orderFactory->getAllOrders();
         echo "<td>" . $order->phone . "</td>";
         echo "<td>" . $order->address . "</td>";
         echo "<td>" . $order->date . "</td>";
-        echo "<td><a href=\"?action=delete&id=".$order->id ."\" onclick=\"return confirm('Удалить заказ?')\">удалить</a></td>";
+        echo "<td><a href=\"?action=delete&id=" . $order->id . "\" onclick=\"return confirm('Удалить заказ?')\">удалить</a></td>";
         ?></tr><?
     }
     ?>

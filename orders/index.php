@@ -113,12 +113,13 @@ $orders = $orderFactory->getAllOrders();
 
 
 <table>
-    <tr>
+    <tr class="thead">
         <th>Номер заказа</th>
         <th>Страница</th>
         <th>Номер телефона</th>
         <th>Адрес</th>
         <th>Дата заказа</th>
+        <th>Статус</th>
         <th></th>
     </tr>
     <?
@@ -130,6 +131,15 @@ $orders = $orderFactory->getAllOrders();
             <td><?= $order->phone ?></td>
             <td class="address" id="address_<?=$order->id?>" orderid="<?= $order->id ?>"><?= $order->address ?></td>
             <td><?= $order->date ?></td>
+            <td><?
+                switch($order->status)
+                {
+                    case 0:
+                        echo 'Новый';
+                        break;
+                }
+                $order->status
+                ?></td>
             <td><a href="?action=delete&id=<?= $order->id ?>" onclick="return confirm('Удалить заказ?')">удалить</a>
             </td>
         </tr>

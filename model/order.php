@@ -12,6 +12,7 @@ class Order
     public $address;
     public $status;
     public $date;
+    public $description;
 
     private $_connection;
 
@@ -29,6 +30,7 @@ class Order
         $order->address = $row->address;
         $order->status = $row->status;
         $order->date = $row->date;
+        $order->description = $row->description;
         return $order;
     }
 

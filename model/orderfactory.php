@@ -53,7 +53,7 @@ class OrderFactory
 
     public function save($order)
     {
-        $query = "insert into orders (dishname, phone, address, date) value('$order->dishname','$order->phone','$order->address',now())";
+        $query = "insert into orders (dishname, phone, date) value('$order->dishname','$order->phone',now())";
         $this->_connection->executeNonQuery($query); // mysql_query($query, $this->_connection) or die(mysql_error());
     }
 
@@ -65,7 +65,7 @@ class OrderFactory
 
     public function update($order)
     {
-        $query = "update orders set address='" . $order->address . "', status=" . $order->status . " where id=" . $order->id;
+        $query = "update orders set address='" . $order->address . "', status=" . $order->status . ", description='" . $order->description . "' where id=" . $order->id;
         $this->_connection->executeNonQuery($query);
     }
 } 

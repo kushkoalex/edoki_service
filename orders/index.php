@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['login_status'])||$_SESSION['login_status']==false) {
+if (!isset($_SESSION['login_status']) || $_SESSION['login_status'] == false) {
     header("Location:login.html");
 }
 
@@ -28,18 +28,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 }
 
 
-
 $orders = $orderFactory->getAllOrders();
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Edoki - Заказы</title>
+    <link rel="stylesheet" href="css/main.css?v=0.0.11">
     <script type="text/javascript" src="../vendor/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
         $(function () {
-
+            var editing = false;
+            var currentElem;
+            var oldValue;
             $("#link1").click(function () {
 
                 alert("hello!");
@@ -63,49 +65,88 @@ $orders = $orderFactory->getAllOrders();
                     }
                 });
             });
+
+            $(".address").click(function () {
+                if (!editing) {
+                    oldValue = this.innerText;
+                    this.innerText = '';
+                    var elem = document.createElement('textarea');
+                    elem.innerText = oldValue;
+                    this.appendChild(elem);
+                    elem.focus();
+                    editing = true;
+                    currentElem = this;
+                    $("#buttons").css("display","block");
+                }
+            });
+
+
+            $("#savebtn").click(function () {
+                if (editing) {
+
+                    var orderid = currentElem.getAttribute('orderid');
+                    var newValue = $(currentElem).children(":first")[0].value
+                    currentElem.innerHTML = newValue;
+                    $.post("updateorder.php", {text: newValue, id: orderid });
+                    editing = false;
+                    $("#buttons").css("display","none");
+                    return false;
+                }
+            });
+
+            $("#cancelbtn").click(function () {
+                if (editing) {
+                    currentElem.innerHTML = oldValue;
+                    editing = false;
+                    $("#buttons").css("display","none");
+                    return false;
+                }
+            });
+
+
         });
     </script>
 </head>
 <body>
-<a href="#" id="link1">send request</a>
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-<a href="logout.php">logout</a>
 
-<table border="1" style="border-collapse: collapse;">
+<a href="logout.php">Выйти</a>
+
+
+<table>
     <tr>
-        <th>id</th>
-        <th>page</th>
-        <th>phone</th>
-        <th>address</th>
-        <th>date</th>
+        <th>Номер заказа</th>
+        <th>Страница</th>
+        <th>Номер телефона</th>
+        <th>Адрес</th>
+        <th>Дата заказа</th>
         <th></th>
     </tr>
     <?
     foreach ($orders as $order) {
         ?>
-        <tr><?
-        echo "<td>" . $order->id . "</td>";
-        echo "<td>" . $order->dishname . "</td>";
-        echo "<td>" . $order->phone . "</td>";
-        echo "<td>" . $order->address . "</td>";
-        echo "<td>" . $order->date . "</td>";
-        echo "<td><a href=\"?action=delete&id=" . $order->id . "\" onclick=\"return confirm('Удалить заказ?')\">удалить</a></td>";
-        ?></tr><?
-    }
-    ?>
+        <tr>
+            <td><?= $order->id ?></td>
+            <td><?= $order->dishname ?></td>
+            <td><?= $order->phone ?></td>
+            <td class="address" id="address_<?=$order->id?>" orderid="<?= $order->id ?>"><?= $order->address ?></td>
+            <td><?= $order->date ?></td>
+            <td><a href="?action=delete&id=<?= $order->id ?>" onclick="return confirm('Удалить заказ?')">удалить</a>
+            </td>
+        </tr>
+    <? } ?>
 </table>
+<div id="buttons">
+    <input type="button" value="Сохранить" id="savebtn">
+    <input type="button" value="Отмена" id="cancelbtn">
+</div>
 
 
-<form action="index.php" method="post">
-    <label for="dishname">dishname</label><input type="text" id="dishname" name="dishname"><br>
-    <label for="address">address</label><input type="text" id="address" name="address"><br>
-    <label for="phone">phone</label><input type="text" id="phone" name="phone"><br>
-    <input type="submit" value="Save">
-</form>
+<!--<form action="index.php" method="post">-->
+<!--    <label for="dishname">dishname</label><input type="text" id="dishname" name="dishname"><br>-->
+<!--    <label for="address">address</label><input type="text" id="address" name="address"><br>-->
+<!--    <label for="phone">phone</label><input type="text" id="phone" name="phone"><br>-->
+<!--    <input type="submit" value="Save">-->
+<!--</form>-->
 
 </body>
 </html>

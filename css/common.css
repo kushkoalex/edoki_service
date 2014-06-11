@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.footer {
+    margin-top: 50px;
+    font-family: 'Bad Script', cursive;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.footer .copyright {
+    text-align: center;
+    line-height: 20px;
+}
+
+.footer .copyright a {
+    color: #0072bc;
+    text-decoration: underline;
+}
+
+
+.menu
+{
+    height: 68px;
+    background: url("../img/menu-bg.png");
+}
+
+.menu a {
+    display: block;
+
+    position: absolute;
+    margin-top: 10px;
+
+}
+
+.menu .matafuku-link
+{
+    width: 310px;
+    height: 36px;
+    background: url("../img/matafuku-link.png");
+    margin-left: 40px;
+    margin-top: 15px;
+}
+
+.menu .matafuku-link.selected
+{
+    background: url("../img/matafuku-link-selected.png");
+}
+
+.menu .salad-link{
+
+    background: url("../img/salad-link.png");
+    margin-left: 460px;
+    margin-top: 15px;
+}
+
+.menu a.salad-link
+{
+    width: 301px;
+    height: 39px;
+    /*margin-top: 8px;*/
+}
+
+
+
+.menu .salad-link.selected
+{
+    background: url("../img/salad-link-selected.png");
+}
+
+.menu .limo-link
+{
+    width: 297px;
+    height: 29px;
+
+    background: url("../img/limo-link.png");
+    margin-left: 860px;
+    margin-top: 20px;
+}
+
+.menu .limo-link.selected
+{
+    background: url("../img/limo-link-selected.png");
+}

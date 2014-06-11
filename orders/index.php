@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['login_status'])) {
+if (!isset($_SESSION['login_status'])||$_SESSION['login_status']==false) {
     header("Location:login.html");
 }
 
@@ -32,6 +32,48 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 $orders = $orderFactory->getAllOrders();
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="../vendor/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#link1").click(function () {
+
+                alert("hello!");
+
+                var order = {};
+                order.phone = "123123";
+                order.from = "page1";
+
+                $.ajax({
+                    url: "/service/makeorder.php",
+                    contentType: "application/json",
+                    accepts: "application/json",
+                    type: "POST",
+                    data: JSON.stringify(order),
+                    success: function (message) {
+                        alert("Спасибо за заказ!\r\n Едоки свяжутся с Вами в ближайшее время :)");
+                    },
+
+                    error: function () {
+                        alert("Ошибка при отправке запроса");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<a href="#" id="link1">send request</a>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<a href="logout.php">logout</a>
 
 <table border="1" style="border-collapse: collapse;">
     <tr>
@@ -64,4 +106,14 @@ $orders = $orderFactory->getAllOrders();
     <label for="phone">phone</label><input type="text" id="phone" name="phone"><br>
     <input type="submit" value="Save">
 </form>
+
+</body>
+</html>
+
+
+
+
+
+
+
 

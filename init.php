@@ -1,6 +1,6 @@
 <?php
 require_once "config.php";
-require_once "../model/connection.php";
+require_once "model/connection.php";
 $connection = new \model\Connection($db_host, $db_login, $db_password,$db_name);
 
 //$connection = mysql_connect($db_host, $db_login, $db_password) or die(mysql_error());

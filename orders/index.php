@@ -24,8 +24,7 @@ if (isset($_POST['page']) && isset($_POST['phone'])) {
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $order = $orderFactory->getOrderById($_GET['id']);
-    if($order!=null)
-    {
+    if ($order != null) {
         $orderFactory->delete($order);
     }
 }
@@ -38,7 +37,7 @@ $orders = $orderFactory->getAllOrders();
 <head>
     <meta charset="UTF-8">
     <title>Edoki - Заказы</title>
-    <link rel="stylesheet" href="css/main.css?v=0.0.11">
+    <link rel="stylesheet" href="css/main.css?v=0.0.12">
     <script type="text/javascript" src="../vendor/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -46,6 +45,23 @@ $orders = $orderFactory->getAllOrders();
             var currentElem;
             var oldValue;
             var oldIndex;
+
+//            function getNewOrders() {
+//
+//                if (!editing) {
+//                    console.log("started");
+//                    $.ajax({
+//                        url: "/service/getorders.php",
+//                        cache: false,
+//                        success: function (html) {
+//                            console.log("ok");
+//                            $("#orders").html(html);
+//                        }
+//                    });
+//                }
+//            }
+
+
             $("#link1").click(function () {
 
                 alert("hello!");
@@ -200,6 +216,30 @@ $orders = $orderFactory->getAllOrders();
                 }
             });
 
+            $("#newOrderBtn").click(function(){
+                   $(this).css("display","none");
+                   $("#newOrder").css("display","block");
+                   editing= true;
+                }
+            );
+
+            $("#cancelNewOrder").click(function(){
+                $("#newOrder").css("display","none");
+                $("#newOrderBtn").css("display","block");
+                editing= false;
+            });
+
+            function refreshPage() {
+                if(!editing)
+                {
+                    location.reload();
+                }
+            }
+
+            setInterval(refreshPage, 60000);
+
+//            setInterval(getNewOrders, 20000);
+
 
         });
     </script>
@@ -211,59 +251,66 @@ $orders = $orderFactory->getAllOrders();
     <div class="adminLinksPanel">
         <a href="logout.php">Выйти</a>
     </div>
-
-    <table>
-        <tr class="thead">
-            <th>Номер заказа</th>
-            <th>Страница</th>
-            <th>Номер телефона</th>
-            <th>Адрес</th>
-            <th>Дата заказа</th>
-            <th>Примечания</th>
-            <th class="status">Статус</th>
-            <th></th>
-        </tr>
-        <?
-        foreach ($orders as $order) {
-            ?>
-            <tr>
-                <td><?= $order->id ?></td>
-                <td><?= $order->dishname ?></td>
-                <td><?= $order->phone ?></td>
-                <td class="editable address" id="address_<?= $order->id ?>"
-                    orderid="<?= $order->id ?>"><?= $order->address ?></td>
-                <td><?= $order->date ?></td>
-                <td class="editable description" orderid="<?= $order->id ?>"><?= $order->description ?></td>
-                <td class="editableSelect status" orderid="<?= $order->id ?>"><?
-                    switch ($order->status) {
-                        case 0:
-                            echo 'Новый';
-                            break;
-                        case 1:
-                            echo 'Обработан';
-                            break;
-
-                    }
-                    $order->status
-                    ?></td>
-                <td><a href="?action=delete&id=<?= $order->id ?>" onclick="return confirm('Удалить заказ?')">удалить</a>
-                </td>
+    <div id="orders">
+        <table>
+            <tr class="thead">
+                <th>Номер заказа</th>
+                <th>Страница</th>
+                <th>Номер телефона</th>
+                <th>Адрес</th>
+                <th>Дата заказа</th>
+                <th>Примечания</th>
+                <th class="status">Статус</th>
+                <th></th>
             </tr>
-        <? } ?>
+            <?
+            foreach ($orders as $order) {
+                ?>
+                <tr>
+                    <td><?= $order->id ?></td>
+                    <td><?= $order->dishname ?></td>
+                    <td><?= $order->phone ?></td>
+                    <td class="editable address" id="address_<?= $order->id ?>"
+                        orderid="<?= $order->id ?>"><?= $order->address ?></td>
+                    <td><?= $order->date ?></td>
+                    <td class="editable description" orderid="<?= $order->id ?>"><?= $order->description ?></td>
+                    <td class="editableSelect status" orderid="<?= $order->id ?>"><?
+                        switch ($order->status) {
+                            case 0:
+                                echo 'Новый';
+                                break;
+                            case 1:
+                                echo 'Обработан';
+                                break;
 
-    </table>
+                        }
+                        $order->status
+                        ?></td>
+                    <td><a href="?action=delete&id=<?= $order->id ?>"
+                           onclick="return confirm('Удалить заказ?')">удалить</a>
+                    </td>
+                </tr>
+            <? } ?>
+
+        </table>
+
+    </div>
+
     <div id="buttons">
         <input type="button" value="Сохранить" id="savebtn">
         <input type="button" value="Отмена" id="cancelbtn">
     </div>
 
-    <div class="newOrder">
+    <input type="button" id="newOrderBtn" value="Добавить заказ">
+
+
+    <div id="newOrder">
 
 
         <form action="index.php" method="post">
             <div class="block" style="padding-top: 7px">
                 <label for="page" style="padding-left: 6px">Блюдо</label>
-                <select id="page" name="page" >
+                <select id="page" name="page">
                     <option value="Сытый матафуку">Сытый матафуку</option>
                     <option value="Утренний салат">Утренний салат</option>
                 </select><br>
@@ -281,6 +328,7 @@ $orders = $orderFactory->getAllOrders();
 
             <div style="padding-left: 200px">
                 <input type="submit" value="Сохранить">
+                <input type="button" id="cancelNewOrder" value="Отмена">
             </div>
 
 

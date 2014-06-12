@@ -53,13 +53,17 @@ a {
 
 }
 
-
-.newOrder
+#newOrder
 {
     padding-top: 30px;
+    display: none;
 }
 
-.newOrder div.block
+#newOrder div.block
 {
     float: left;
+}
+
+#newOrderBtn{
+    margin-top: 20px;
 }

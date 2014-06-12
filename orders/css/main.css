@@ -52,3 +52,14 @@ a {
     padding: 10px;
 
 }
+
+
+.newOrder
+{
+    padding-top: 30px;
+}
+
+.newOrder div.block
+{
+    float: left;
+}

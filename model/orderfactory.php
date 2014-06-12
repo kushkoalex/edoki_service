@@ -53,7 +53,7 @@ class OrderFactory
 
     public function save($order)
     {
-        $query = "insert into orders (dishname, phone, date) value('$order->dishname','$order->phone',now())";
+        $query = "insert into orders (dishname, phone, date, address, description) value('$order->dishname','$order->phone',now(),'$order->address','$order->description')";
         $this->_connection->executeNonQuery($query); // mysql_query($query, $this->_connection) or die(mysql_error());
     }
 

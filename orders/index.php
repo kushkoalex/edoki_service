@@ -12,28 +12,31 @@ require_once "../model/mailhelper.php";
 $orderFactory = new \model\OrderFactory($connection);
 
 
-if (isset($_POST['dishname']) && isset($_POST['address']) && isset($_POST['phone'])) {
+if (isset($_POST['page']) && isset($_POST['phone'])) {
 
     $order = new \model\Order();
-    $order->dishname = $_POST['dishname'];
+    $order->dishname = $_POST['page'];
     $order->address = $_POST['address'];
     $order->phone = $_POST['phone'];
-
+    $order->description = $_POST['description'];
     $orderFactory->save($order);
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $order = $orderFactory->getOrderById($_GET['id']);
-    $orderFactory->delete($order);
+    if($order!=null)
+    {
+        $orderFactory->delete($order);
+    }
 }
 
 
 $orders = $orderFactory->getAllOrders();
-
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Edoki - Заказы</title>
     <link rel="stylesheet" href="css/main.css?v=0.0.11">
     <script type="text/javascript" src="../vendor/js/jquery-1.11.1.min.js"></script>
@@ -101,13 +104,12 @@ $orders = $orderFactory->getAllOrders();
 
                         newValue = $(currentElem).children(":first")[0].value;
                         console.log(newValue);
-                        switch (newValue)
-                        {
+                        switch (newValue) {
                             case '0':
-                                currentElem.innerHTML ="Новый";
+                                currentElem.innerHTML = "Новый";
                                 break;
                             case '1':
-                                currentElem.innerHTML ="Обработан";
+                                currentElem.innerHTML = "Обработан";
                                 break;
                         }
                         //currentElem.innerHTML = newValue;
@@ -255,13 +257,36 @@ $orders = $orderFactory->getAllOrders();
         <input type="button" value="Отмена" id="cancelbtn">
     </div>
 
+    <div class="newOrder">
+
+
+        <form action="index.php" method="post">
+            <div class="block" style="padding-top: 7px">
+                <label for="page" style="padding-left: 6px">Блюдо</label>
+                <select id="page" name="page" >
+                    <option value="Сытый матафуку">Сытый матафуку</option>
+                    <option value="Утренний салат">Утренний салат</option>
+                </select><br>
+                <label for="phone">Телефон</label><input type="text" id="phone" name="phone"><br>
+            </div>
+            <div class="block">
+                <label for="address">Адрес</label><br>
+                <textarea id="address" name="address"></textarea><br>
+            </div class="block">
+
+            <div>
+                <label for="description">Примечания</label><br>
+                <textarea id="description" name="description"></textarea><br>
+            </div>
+
+            <div style="padding-left: 200px">
+                <input type="submit" value="Сохранить">
+            </div>
+
+
+        </form>
+    </div>
 </div>
-<!--<form action="index.php" method="post">-->
-<!--    <label for="dishname">dishname</label><input type="text" id="dishname" name="dishname"><br>-->
-<!--    <label for="address">address</label><input type="text" id="address" name="address"><br>-->
-<!--    <label for="phone">phone</label><input type="text" id="phone" name="phone"><br>-->
-<!--    <input type="submit" value="Save">-->
-<!--</form>-->
 
 
 </body>

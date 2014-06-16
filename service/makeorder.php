@@ -13,13 +13,13 @@ try {
     $order->phone = $data['phone'];
     $orderFactory->save($order);
 
-    $mailHelper = new \model\MailHelper();
-    $mailSubj = "Edoki - Заказ - " . $data['from'];
-    $message = '<html><head><title>Edoki - Заказ - ' . $data['from'] . '</title></head><body>
-    <div>Телефон: ' . $data['phone'] . '</div><div>Страница: ' . $data['from'] . '</div>
-    </body></html>';
-    $mailHelper->sendMail($mailTo, $mailTitleFrom, $mailSubj, $message);
+//    $mailHelper = new \model\MailHelper();
+//    $mailSubj = "Edoki - Заказ - " . $data['from'];
+//    $message = '<html><head><title>Edoki - Заказ - ' . $data['from'] . '</title></head><body>
+//    <div>Телефон: ' . $data['phone'] . '</div><div>Страница: ' . $data['from'] . '</div>
+//    </body></html>';
+//    $mailHelper->sendMail($mailTo, $mailTitleFrom, $mailSubj, $message);
 } catch (Exception $e) {
-    throw new Exception('невозможно отправить письмо' . $e->getMessage());
+    //throw new Exception('невозможно отправить письмо' . $e->getMessage());
 }
 

@@ -37,7 +37,7 @@ $orders = $orderFactory->getAllOrders();
 <head>
     <meta charset="UTF-8">
     <title>Edoki - Заказы</title>
-    <link rel="stylesheet" href="css/main.css?v=0.0.12">
+    <link rel="stylesheet" href="css/main.css?v=0.0.14">
     <script type="text/javascript" src="../vendor/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -45,6 +45,8 @@ $orders = $orderFactory->getAllOrders();
             var currentElem;
             var oldValue;
             var oldIndex;
+
+
 
 //            function getNewOrders() {
 //
@@ -252,27 +254,51 @@ $orders = $orderFactory->getAllOrders();
         <a href="logout.php">Выйти</a>
     </div>
     <div id="orders">
+
+        <div id="newOrderBtn">добавить заказ вручную</div>
+
+        <div id="newOrder">
+            <form action="index.php" method="post">
+                <div class="block" style="padding-top: 7px">
+                    <label for="page" style="padding-left: 6px">Блюдо</label>
+                    <select id="page" name="page">
+                        <option value="Сытый матафуку">Сытый матафуку</option>
+                        <option value="Утренний салат">Утренний салат</option>
+                    </select><br>
+                    <label for="phone">Телефон</label><input type="text" id="phone" name="phone"><br>
+                </div>
+                <div class="block">
+                    <label for="address">Адрес</label><br>
+                    <textarea id="address" name="address"></textarea><br>
+                </div class="block">
+
+                <div>
+                    <label for="description">Примечания</label><br>
+                    <textarea id="description" name="description"></textarea><br>
+                </div>
+
+                <div style="padding-left: 200px">
+                    <input type="submit" id="saveNewOrder" value="">
+                    <input type="button" id="cancelNewOrder">
+                </div>
+
+
+            </form>
+        </div>
+
+
         <table>
-            <tr class="thead">
-                <th>Номер заказа</th>
-                <th>Страница</th>
-                <th>Номер телефона</th>
-                <th>Адрес</th>
-                <th>Дата заказа</th>
-                <th>Примечания</th>
-                <th class="status">Статус</th>
-                <th></th>
-            </tr>
             <?
             foreach ($orders as $order) {
                 ?>
                 <tr>
                     <td><?= $order->id ?></td>
-                    <td><?= $order->dishname ?></td>
-                    <td><?= $order->phone ?></td>
+                    <td class="date"><?= $order->date ?></td>
+                    <td class="dishname"><?= $order->dishname ?></td>
+                    <td class="phone"><?= $order->phone ?></td>
                     <td class="editable address" id="address_<?= $order->id ?>"
                         orderid="<?= $order->id ?>"><?= $order->address ?></td>
-                    <td><?= $order->date ?></td>
+
                     <td class="editable description" orderid="<?= $order->id ?>"><?= $order->description ?></td>
                     <td class="editableSelect status" orderid="<?= $order->id ?>"><?
                         switch ($order->status) {
@@ -297,43 +323,10 @@ $orders = $orderFactory->getAllOrders();
     </div>
 
     <div id="buttons">
-        <input type="button" value="Сохранить" id="savebtn">
-        <input type="button" value="Отмена" id="cancelbtn">
+        <input type="button" id="savebtn">
+        <input type="button" id="cancelbtn">
     </div>
 
-    <input type="button" id="newOrderBtn" value="Добавить заказ">
-
-
-    <div id="newOrder">
-
-
-        <form action="index.php" method="post">
-            <div class="block" style="padding-top: 7px">
-                <label for="page" style="padding-left: 6px">Блюдо</label>
-                <select id="page" name="page">
-                    <option value="Сытый матафуку">Сытый матафуку</option>
-                    <option value="Утренний салат">Утренний салат</option>
-                </select><br>
-                <label for="phone">Телефон</label><input type="text" id="phone" name="phone"><br>
-            </div>
-            <div class="block">
-                <label for="address">Адрес</label><br>
-                <textarea id="address" name="address"></textarea><br>
-            </div class="block">
-
-            <div>
-                <label for="description">Примечания</label><br>
-                <textarea id="description" name="description"></textarea><br>
-            </div>
-
-            <div style="padding-left: 200px">
-                <input type="submit" value="Сохранить">
-                <input type="button" id="cancelNewOrder" value="Отмена">
-            </div>
-
-
-        </form>
-    </div>
 </div>
 
 

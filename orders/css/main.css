@@ -3,34 +3,47 @@ body {
     font-size: 13px;
 }
 
-table {
+#orders table {
     border-collapse: collapse;
+    font-family:  "Trebuchet MS",serif;
+    font-size: 16px;
+    margin: 0 auto;
 }
 
-table td {
-    border: 1px dashed #ccc;
+#orders table td {
     padding: 5px 10px;
     cursor: pointer;
 }
 
-table th {
-    padding: 0 10px;
+#orders table td.date
+{
+    color: #cccccc;
 }
 
-table tr.thead:hover {
+#orders table td.phone
+{
+    color: #33cc66;
+}
+
+#orders table td.dishname
+{
+    color: #ff9933;
+}
+
+#orders table tr.thead:hover {
     background-color: #fff;
 }
 
-table td.editableSelect, table td.editable
+#orders table td.editableSelect, table td.editable
 {
-    background-color: #eef;
+    /*background-color: #eef;*/
 }
 
-table td.editable  {
+#orders table td.editable  {
     cursor: text;
 }
 
-table tr:hover {
+#orders table tr:hover {
 
     background-color: #eee;
 }
@@ -51,12 +64,17 @@ a {
     display: none;
     padding: 10px;
 
+    width: 100px;
+    margin: 0 auto;
+
 }
 
 #newOrder
 {
     padding-top: 30px;
     display: none;
+    width: 600px;
+    margin: 0 auto;
 }
 
 #newOrder div.block
@@ -65,5 +83,28 @@ a {
 }
 
 #newOrderBtn{
-    margin-top: 20px;
+    color: #fff;
+    background-color: #99cc33;
+    width: 150px;
+    margin: 10px auto;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+#buttons #savebtn, #buttons #cancelbtn, #saveNewOrder, #cancelNewOrder
+{
+    width: 36px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+}
+
+#buttons #savebtn, #saveNewOrder
+{
+    background: url("btn-ok.png");
+}
+
+#buttons #cancelbtn, #cancelNewOrder
+{
+    background: url("btn-cancel.png");
 }

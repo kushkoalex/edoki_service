@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
+    <link rel="stylesheet" href="css/main.css?v=0.0.14">
+    <script type="text/javascript" src="../vendor/js/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#username").focus();
+        });
+    </script>
 </head>
 <body>
-<form action="login.php" method="post">
-     <label> login
-    <input type="text" name="username">
-</label><br>
-    <label>password
-        <input type="password" name="password">
-    </label><br>
-    <input type="submit" value="login">
-</form>
+<div style="width: 300px; position: relative; margin: 300px auto 0 auto">
+    <form action="login.php" method="post">
+        <table>
+            <tr>
+                <td>Логин:</td>
+                <td><input type="text" name="username" id="username"></td>
+            </tr>
+            <tr>
+                <td>Пароль:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <input type="submit" value="Вход"  >
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
 </body>
 </html>

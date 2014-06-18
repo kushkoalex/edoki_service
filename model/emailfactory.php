@@ -39,7 +39,7 @@ class EmailFactory {
 
     public function save($mail)
     {
-        $query = "insert into emails (email, active,) value('$mail->email',1)";
+        $query = "insert into emails (email, active) value('$mail->email',1)";
         $this->_connection->executeNonQuery($query); // mysql_query($query, $this->_connection) or die(mysql_error());
     }
 

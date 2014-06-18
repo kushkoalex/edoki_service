@@ -307,6 +307,8 @@ $(function () {
 <div class="ordersWrapper">
     <div class="adminLinksPanel">
         <a href="logout.php">Выйти</a>
+        &nbsp;
+        <a href="emails.php">Адреса email для отправки</a>
     </div>
     <div id="orders">
 

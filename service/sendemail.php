@@ -27,20 +27,19 @@ try {
 
     $body.='</body>';
 
-
-
-
     //    echo(json_encode($checked_emails[0]));
 
 
     $mailHelper = new \model\MailHelper();
-    $mailSubj = "Edoki - Заказ - " . $data['from'];
-    $message = '<html><head><title>Edoki - Заказ - ' . $data['from'] . '</title></head>';
+    $mailSubj = "Edoki - Заказ";
+    $message = '<html><head><title>Edoki - Заказ</title></head>';
     $message .= $body;
     $message .='</html>';
 
     foreach ($checked_emails as $email) {
-        $mailHelper->sendMail($email, $mailTitleFrom, $mailSubj, $message);
+        //$mailHelper->sendMail($email, $mailTitleFrom, $mailSubj, $message);
+
+        echo($message);
     }
 
 } catch (Exception $e) {

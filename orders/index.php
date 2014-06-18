@@ -292,7 +292,7 @@ $(function () {
     $("#sendEmailCancel").click(function(){
         $(".order_checkboxes").each(function () {
             if ($(this).prop("checked")) {
-                $('input:checkbox').removeAttr('checked');
+                $(this).removeAttr('checked');
             }
         });
         $("#sendEmailPanel").fadeOut();
@@ -388,6 +388,9 @@ $(function () {
     </div>
 
     <div id="sendEmailPanel">
+        <div class="title">
+Отправка заказа по email
+        </div>
         <table>
             <?
             foreach ($emails as $mail) {

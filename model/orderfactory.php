@@ -25,7 +25,7 @@ class OrderFactory
     public function getAllOrders()
     {
         $orders = array();
-        $query = "select * from orders";
+        $query = "select * from orders where deleted=0";
         $result = $this->_connection->executeQuery($query) or die(mysql_error());
         while ($row = mysql_fetch_object($result)) {
             $order = Order::Init($row);
@@ -59,7 +59,8 @@ class OrderFactory
 
     public function delete($order)
     {
-        $query = "delete from orders where id=$order->id";
+        //$query = "delete from orders where id=$order->id";
+        $query = "update orders set deleted=1 where id=$order->id";
         $this->_connection->executeNonQuery($query);
     }
 

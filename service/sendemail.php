@@ -25,7 +25,7 @@ try {
         $body .= '<div>Телефон: ' . $order->phone . '</div><div>Страница: ' . $order->dishname . '<br><br><br></div>';
     }
 
-    $body.='</body>';
+    $body .= '</body>';
 
     //    echo(json_encode($checked_emails[0]));
 
@@ -34,12 +34,11 @@ try {
     $mailSubj = "Edoki - Заказ";
     $message = '<html><head><title>Edoki - Заказ</title></head>';
     $message .= $body;
-    $message .='</html>';
+    $message .= '</html>';
 
     foreach ($checked_emails as $email) {
-        //$mailHelper->sendMail($email, $mailTitleFrom, $mailSubj, $message);
-
-        echo($message);
+        echo($email);
+        $mailHelper->sendMail($email, $mailTitleFrom, $mailSubj, $message);
     }
 
 } catch (Exception $e) {

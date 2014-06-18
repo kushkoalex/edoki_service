@@ -68,6 +68,8 @@ $(function () {
 
     $("#sendEmail").click(function () {
 
+
+
         var checked_emails = [];
         var checked_orders = [];
         $(".email_checkboxes").each(function(){
@@ -81,8 +83,6 @@ $(function () {
                 checked_orders.push($(this).val());
             }
         });
-
-
 
 
 
@@ -108,10 +108,13 @@ $(function () {
             data: JSON.stringify(emaildata),
             success: function (message) {
                 console.log(message);
+                $("#sendEmailPanel").fadeOut();
+
             },
 
             error: function (error) {
                 console.log("Ошибка при отправке запроса" +error);
+                alert(error);
             }
         });
     });
@@ -285,8 +288,6 @@ $(function () {
         } else {
             $("#sendEmailPanel").fadeOut();
         }
-
-
     });
 
     $("#sendEmailCancel").click(function(){
@@ -297,9 +298,6 @@ $(function () {
         });
         $("#sendEmailPanel").fadeOut();
     });
-
-
-
 });
 </script>
 </head>

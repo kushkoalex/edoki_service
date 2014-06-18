@@ -60,7 +60,7 @@ a {
     padding-bottom: 20px;
 }
 
-#buttons {
+#buttons{
     display: none;
     padding: 10px;
 
@@ -91,20 +91,46 @@ a {
     cursor: pointer;
 }
 
-#buttons #savebtn, #buttons #cancelbtn, #saveNewOrder, #cancelNewOrder
+.btnOk, .btnCancel
 {
     width: 36px;
     height: 35px;
     border: none;
     cursor: pointer;
+    outline: none;
 }
 
-#buttons #savebtn, #saveNewOrder
+.btnOk
 {
     background: url("btn-ok.png");
 }
 
-#buttons #cancelbtn, #cancelNewOrder
+.btnCancel
 {
     background: url("btn-cancel.png");
+}
+
+input.order_checkboxes
+{
+    cursor: pointer;
+}
+
+#sendEmailPanel
+{
+    padding: 20px;
+}
+
+#sendEmailButtons
+{
+    padding: 20px;
+}
+
+#sendEmailPanel {
+
+    display: none;
+    padding: 10px;
+
+    width: 400px;
+    margin: 20px auto 0 auto;
+
 }
